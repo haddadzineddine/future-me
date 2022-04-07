@@ -9,15 +9,17 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ mix('css/app.css') }}">
+
 </head>
 
 <body class="font-poppins">
 
-    <div id="app" class="mx-8 my-8">
+    <div id="app" class="mx-16 flex h-screen  justify-center items-center">
         <App />
     </div>
 
-
+    <script src="https://unpkg.com/flowbite@1.4.1/dist/flowbite.js"></script>
+    <script src="https://unpkg.com/flowbite@1.4.1/dist/datepicker.js"></script>
     <script src="{{ mix('js/app.js') }}"></script>
 
 </body>

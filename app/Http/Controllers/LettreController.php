@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Models\Lettre;
-use Carbon\Carbon;
-use Illuminate\Http\Request;
+use App\Events\LettreCreated;
 
 class LettreController extends Controller
 {
@@ -14,16 +14,17 @@ class LettreController extends Controller
         $this->validate(request(), [
             "description" => 'required',
             "email" => 'required|email',
-            "deliver_in" => 'required'
+            "deliver_at" => 'required'
         ]);
 
-        $deliver_in = Carbon::now()->addYear(request('deliver_in'));
 
-        Lettre::create([
+        $lettre = Lettre::create([
             'description' => request('description'),
             'email' => request('email'),
-            'deliver_in' => $deliver_in,
+            'deliver_at' => request('deliver_at'),
         ]);
+
+        LettreCreated::dispatch($lettre);
 
         return ['message' => 'Lettre Created!'];
     }

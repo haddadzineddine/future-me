@@ -11,7 +11,12 @@
                 </p>
             </div>
         </div>
-        <div class="mr-8 flex space-x-2 text-white">
+        <div class="mr-8 flex items-center space-x-2 text-white">
+            <img
+                class="w-10 h-10 p-1 rounded-full ring-2 ring-blue-300 dark:ring-blue-500"
+                :src="zineddine"
+                alt="Bordered avatar"
+            />
             <span>
                 Create by
                 <a href="https://zineddine.netlify.com/" class="underline">HADDAD ZINEDDINE</a>
@@ -35,6 +40,6 @@
 </template>
 
 <script setup>
-
+import zineddine from "../images/zineddine.jpg";
 </script>
 
