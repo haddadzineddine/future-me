@@ -1,10 +1,5 @@
 <template>
-    <nav class="h-16 bg-primary">
-
-    </nav>
+    <nav class="h-16"></nav>
 </template>
 
-<script setup>
-
-</script>
-
+<script setup></script>

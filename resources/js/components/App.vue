@@ -1,8 +1,8 @@
 <template>
     <NavBarV />
-    <div class="flex border">
-        <Lettre />
+    <div class="flex space-x-32">
         <TagLine />
+        <Lettre />
     </div>
 </template>
 
