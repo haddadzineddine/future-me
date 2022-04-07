@@ -13,7 +13,7 @@
 
 <body class="font-poppins">
 
-    <div id="app" class="mx-8">
+    <div id="app" class="mx-8 my-8">
         <App />
     </div>
 

@@ -1,5 +1,4 @@
 <template>
-    <NavBarV />
     <div class="flex space-x-32">
         <TagLine />
         <Lettre />
@@ -7,7 +6,6 @@
 </template>
 
 <script setup>
-import NavBarV from "./NavBar.vue";
 import Lettre from "./Lettre.vue";
 import TagLine from "./TagLine.vue";
 </script>

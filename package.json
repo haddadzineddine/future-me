@@ -20,6 +20,10 @@
     },
     "dependencies": {
         "@headlessui/vue": "^1.5.0",
-        "vue": "^3.2.31"
+        "@vuelidate/core": "^2.0.0-alpha.40",
+        "@vuelidate/validators": "^2.0.0-alpha.28",
+        "mosha-vue-toastify": "^1.0.23",
+        "vue": "^3.2.31",
+        "vue-toast-notification": "^3.0.0"
     }
 }

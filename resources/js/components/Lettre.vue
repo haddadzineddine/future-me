@@ -1,6 +1,6 @@
 <template>
     <div class="w-full">
-        <div class="mr-8 px-8 py-6 rounded bg-white">
+        <div class="mr-8 px-8 py-6 rounded shadow bg-white">
             <div class="flex justify-between mb-6">
                 <h2>YOUR FUTURE LETTRE</h2>
                 <button class="flex space-x-3">
@@ -21,14 +21,20 @@
                     </svg>
                 </button>
             </div>
-            <form action class="flex flex-col">
-                <textarea class="border-2 rounded px-4 py-4" rows="8">Dear FutureMe,
-                </textarea>
+            <form @submit.prevent="submit" class="flex flex-col">
+                <textarea
+                    v-model="lettre.description"
+                    class="border-2 focus:outline-primary rounded px-4 py-4"
+                    rows="8"
+                ></textarea>
+                <div class="mt-2" v-for="error of $v.description.$errors" :key="error.$uid">
+                    <div class="error-msg text-sm text-red-500">{{ error.$message }}</div>
+                </div>
 
                 <h1 class="mt-8">DELIVER IN</h1>
                 <div class="w-full mt-4">
                     <div class="w-full">
-                        <RadioGroup v-model="selected">
+                        <RadioGroup v-model="lettre.deliver_in">
                             <div class="space-x-3 flex">
                                 <RadioGroupOption
                                     as="template"
@@ -51,7 +57,7 @@
                                                 as="p"
                                                 :class="checked ? 'text-white' : 'text-gray-900'"
                                                 class="font-medium"
-                                            >{{ date.year }}</RadioGroupLabel>
+                                            >{{ Year(date) }}</RadioGroupLabel>
                                         </div>
                                     </div>
                                 </RadioGroupOption>
@@ -59,13 +65,16 @@
                         </RadioGroup>
                     </div>
                 </div>
+                <div class="mt-2" v-for="error of $v.deliver_in.$errors" :key="error.$uid">
+                    <div class="error-msg text-sm text-red-500">{{ error.$message }}</div>
+                </div>
 
                 <h1 class="mt-8">YOUR EMAIL ADDRESS</h1>
                 <div class="relative mt-6 flex">
                     <span class="absolute flex items-center inset-y-0 left-0 pl-2">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
-                            class="h-6 w-6"
+                            class="h-6 w-6 text-gray-400"
                             fill="none"
                             viewBox="0 0 24 24"
                             stroke="currentColor"
@@ -79,15 +88,19 @@
                         </svg>
                     </span>
                     <input
+                        v-model="lettre.email"
                         type="email"
                         placeholder="Please enter your email"
-                        class="w-full rounded pl-10 py-2 border-2 px-4"
+                        class="w-full focus:outline-primary rounded pl-10 py-2 border-2 px-4"
                     />
+                </div>
+                <div class="mt-2" v-for="error of $v.email.$errors" :key="error.$uid">
+                    <div class="error-msg text-sm text-red-500">{{ error.$message }}</div>
                 </div>
 
                 <button
-                    class="w-full mt-8 py-3 text-primary rounded border border-primary hover:text-white hover:bg-primary"
-                >SEND TO THE FUTURE !</button>
+                    class="w-full mt-6 bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded"
+                >SEND TO THE FUTURE</button>
             </form>
         </div>
     </div>
@@ -95,24 +108,81 @@
 
 
 <script setup>
-import { ref } from 'vue'
+import { reactive } from 'vue'
 import {
     RadioGroup,
     RadioGroupLabel,
     RadioGroupOption,
 } from '@headlessui/vue'
+import useVuelidate from '@vuelidate/core'
+import { required, email } from '@vuelidate/validators'
+import axios from 'axios';
+import { createToast } from 'mosha-vue-toastify';
+import 'mosha-vue-toastify/dist/style.css';
 
-const dates = [
-    {
-        year: '1 year'
-    },
-    {
-        year: '3 years'
-    },
-    {
-        year: '5 years'
+
+
+const dates = [1, 3, 5]
+
+
+const Year = (year) => {
+    return year == 1 ? year + ' Year' : year + ' Years'
+}
+
+    ;
+const lettre = reactive({
+    deliver_in: dates[0],
+    description: 'Dear FutureMe, \n',
+    email: ''
+});
+
+const rules = {
+    deliver_in: { required },
+    description: { required },
+    email: { required, email },
+}
+
+const $v = useVuelidate(rules, lettre)
+
+
+const submit = async () => {
+
+    let result = await $v.value.$validate();
+
+    if (!result) {
+        return;
     }
-]
 
-const selected = ref(dates[0])
+    axios.post('/api/add-lettre', lettre)
+        .then(() => {
+            success();
+        })
+        .catch(() => {
+            fail();
+        });
+
+    resetForm();
+}
+
+const success = () => {
+    createToast(
+        { title: 'Success', description: 'Yes! Your lettre will be devilver on time !' },
+        { type: 'success' }
+    );
+}
+
+const fail = () => {
+    createToast(
+        { title: 'Fail', description: 'Oops! Something went wrong , try again later.' },
+        { type: 'danger' }
+    );
+}
+
+const resetForm = () => {
+    lettre.description = 'Dear FutureMe, \n';
+    lettre.email = '';
+    lettre.deliver_in = dates[0];
+    $v.value.$reset()
+}
+
 </script>
