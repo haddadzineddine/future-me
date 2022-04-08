@@ -219,7 +219,7 @@
                             style="padding: 12px 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 14px; line-height: 20px; color: #666;">
 
                             <p style="margin: 0;">Haddad Zineddine , Full-stack web developer </p>
-                            <a href="zineddine.netlify.com" style="margin: 0;">Hire Me </a>
+                            <a href="https://zineddine.netlify.com/" style="margin: 0;">Hire Me </a>
                         </td>
                     </tr>
                     <!-- end unsubscribe -->
