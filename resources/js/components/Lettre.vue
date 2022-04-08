@@ -1,5 +1,5 @@
 <template>
-    <div class="px-8 my-12 md:mt-0 w-full py-6 rounded shadow bg-white">
+    <div class="px-8 h-full w-full my-12 md:my-0 py-8 rounded shadow bg-white">
         <div class="flex mb-6">
             <svg
                 xmlns="http://www.w3.org/2000/svg"

@@ -21721,7 +21721,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 
 var _hoisted_1 = {
-  "class": "px-8 my-12 md:mt-0 w-full py-6 rounded shadow bg-white"
+  "class": "px-8 h-full w-full my-12 md:my-0 py-8 rounded shadow bg-white"
 };
 
 var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
@@ -21920,7 +21920,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 
 var _hoisted_1 = {
-  "class": "mr-8 w-full flex flex-col"
+  "class": "mr-8 w-full flex flex-col justify-between"
 };
 
 var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"my-8 space-y-16\"><h1 class=\"text-6xl text-white font-bold\"> Write a letter to the future </h1><div class=\"text-white\"><p class=\"text-2xl\"> &quot;I love this. I&#39;ve sent myself 5 letters so far and every year it&#39;s a surprise. Because I forget so easily. It turns into such a deep reflective process, that I usually weep and laugh while I write.&quot; </p><p class=\"mt-8\"><i>- Haddad Zineddine</i></p></div></div>", 1);

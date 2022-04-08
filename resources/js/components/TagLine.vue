@@ -1,5 +1,5 @@
 <template>
-    <div class="mr-8 w-full flex flex-col ">
+    <div class="mr-8 w-full flex flex-col justify-between">
         <div class="my-8 space-y-16">
             <h1 class="text-6xl text-white font-bold">
                 Write a letter to the future
