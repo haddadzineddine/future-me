@@ -14,14 +14,16 @@ class LettreCreated
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
+
+    public $lettre;
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct(public $lettre)
+    public function __construct($lettre)
     {
-        //
+        $this->lettre = $lettre;
     }
 
     /**

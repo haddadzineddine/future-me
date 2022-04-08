@@ -11,6 +11,7 @@ class FutureMe extends Mailable
 {
     use Queueable, SerializesModels;
 
+    public $details;
 
 
     /**
@@ -18,8 +19,9 @@ class FutureMe extends Mailable
      *
      * @return void
      */
-    public function __construct(public  $details)
+    public function __construct($details)
     {
+        $this->details = $details;
     }
 
     /**
