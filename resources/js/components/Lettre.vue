@@ -178,10 +178,14 @@ const createLettre = (url, data) => {
     return new Promise((resolve, reject) => {
         axios
             .post(url, data)
-            .then(() => {
+            .then((response) => {
                 flashMessage(
                     "Success",
-                    "Yes! Your lettre will be devilver on time !",
+                    "Yes! Your letter will be delivered in the future on " +
+                        moment(response.data.lettre.deliver_at).format(
+                            "MMM Do YY"
+                        ) +
+                        ", Just confirm your email address !  😍 ",
                     "success"
                 );
                 reset();
@@ -191,7 +195,7 @@ const createLettre = (url, data) => {
             .catch(() => {
                 flashMessage(
                     "Fail",
-                    "Oops! Something went wrong , try again later.",
+                    "Oops! Something went wrong , try again later ...",
                     "danger"
                 );
                 reject();

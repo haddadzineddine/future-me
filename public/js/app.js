@@ -21532,7 +21532,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                MarkAsInCompleted();
+                markAsInComplete();
                 _context.next = 3;
                 return $v.value.$validate();
 
@@ -21544,7 +21544,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   break;
                 }
 
-                MarkAsCompleted();
+                markAsComplete();
                 return _context.abrupt("return");
 
               case 7:
@@ -21566,44 +21566,37 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
     var createLettre = function createLettre(url, data) {
       return new Promise(function (resolve, reject) {
-        axios__WEBPACK_IMPORTED_MODULE_3___default().post(url, data).then(function () {
-          successMessage();
-          resetForm();
-          MarkAsCompleted();
+        axios__WEBPACK_IMPORTED_MODULE_3___default().post(url, data).then(function (response) {
+          flashMessage("Success", "Yes! Your letter will be delivered in the future on " + moment(response.data.lettre.deliver_at).format("MMM Do YY") + ", Just confirm your email address !  😍 ", "success");
+          reset();
+          resolve();
+          markAsComplete();
         })["catch"](function () {
-          failMessage();
-          MarkAsCompleted();
+          flashMessage("Fail", "Oops! Something went wrong , try again later ...", "danger");
+          reject();
+          markAsComplete();
         });
       });
     };
 
-    var MarkAsCompleted = function MarkAsCompleted() {
+    var markAsComplete = function markAsComplete() {
       return isCompleted.value = true;
     };
 
-    var MarkAsInCompleted = function MarkAsInCompleted() {
+    var markAsInComplete = function markAsInComplete() {
       return isCompleted.value = false;
     };
 
-    var successMessage = function successMessage() {
+    var flashMessage = function flashMessage(title, description, type) {
       (0,mosha_vue_toastify__WEBPACK_IMPORTED_MODULE_4__.createToast)({
-        title: "Success",
-        description: "Yes! Your lettre will be devilver on time !"
+        title: title,
+        description: description
       }, {
-        type: "success"
+        type: type
       });
     };
 
-    var failMessage = function failMessage() {
-      (0,mosha_vue_toastify__WEBPACK_IMPORTED_MODULE_4__.createToast)({
-        title: "Fail",
-        description: "Oops! Something went wrong , try again later."
-      }, {
-        type: "danger"
-      });
-    };
-
-    var resetForm = function resetForm() {
+    var reset = function reset() {
       lettre.description = "Dear FutureMe, \n";
       lettre.email = "";
       lettre.deliver_at = "";
@@ -21617,11 +21610,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       $v: $v,
       submit: submit,
       createLettre: createLettre,
-      MarkAsCompleted: MarkAsCompleted,
-      MarkAsInCompleted: MarkAsInCompleted,
-      successMessage: successMessage,
-      failMessage: failMessage,
-      resetForm: resetForm,
+      markAsComplete: markAsComplete,
+      markAsInComplete: markAsInComplete,
+      flashMessage: flashMessage,
+      reset: reset,
       reactive: vue__WEBPACK_IMPORTED_MODULE_1__.reactive,
       ref: vue__WEBPACK_IMPORTED_MODULE_1__.ref,
       useVuelidate: _vuelidate_core__WEBPACK_IMPORTED_MODULE_2__["default"],

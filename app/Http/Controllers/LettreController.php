@@ -28,6 +28,6 @@ class LettreController extends Controller
 
         LettreCreated::dispatch($lettre);
 
-        return ['message' => 'Lettre Created!'];
+        return ['message' => 'Lettre Created!', 'lettre' => $lettre];
     }
 }
