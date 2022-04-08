@@ -4,17 +4,12 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 use App\Models\Lettre;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\URL;
 
 class VerifyEmailController extends Controller
 {
-    /**
-     * Handle the incoming request.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function __invoke(Lettre $lettre)
+
+    public function send(Lettre $lettre)
     {
 
         if (!request()->hasValidSignature()) {
@@ -25,6 +20,20 @@ class VerifyEmailController extends Controller
         $lettre->email_verified_at =  Carbon::now();
         $lettre->save();
 
-        return redirect('/');
+
+        $url = URL::temporarySignedRoute('email.isConfirmed', now()->addMinute(5));
+
+        return redirect($url);
+    }
+
+
+    public function show()
+    {
+        if (!request()->hasValidSignature()) {
+
+            abort(403, 'Invalid Signature');
+        }
+
+        return view('email-is-verified');
     }
 }
