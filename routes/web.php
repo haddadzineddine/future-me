@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\VerifyEmailController;
 
 
-Route::get('/lettres/{lettre}/email/confirm',  [VerifyEmailController::class, 'send'])
+Route::get('/lettres/{lettre}/email/confirm',  [VerifyEmailController::class, 'confirm'])
     ->name('lettres.confirmEmail');
 
 Route::get('/email-is-verified',  [VerifyEmailController::class, 'show'])

@@ -28,7 +28,7 @@ class SendEmailVerification
      */
     public function handle($event)
     {
-        $url = URL::temporarySignedRoute('lettres.confirmEmail', now()->addMinute(5), ['lettre' => $event->lettre->id]);
+        $url = URL::temporarySignedRoute('lettres.confirmEmail', now()->addDay(), ['lettre' => $event->lettre->id]);
         Mail::to($event->lettre->email)->send(new VerifyEmail($url));
     }
 }

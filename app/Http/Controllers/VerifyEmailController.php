@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\URL;
 class VerifyEmailController extends Controller
 {
 
-    public function send(Lettre $lettre)
+    public function confirm(Lettre $lettre)
     {
 
         if (!request()->hasValidSignature()) {
@@ -21,7 +21,7 @@ class VerifyEmailController extends Controller
         $lettre->save();
 
 
-        $url = URL::temporarySignedRoute('email.isConfirmed', now()->addMinute(5));
+        $url = URL::temporarySignedRoute('email.isConfirmed', now()->addMinute(10));
 
         return redirect($url);
     }
