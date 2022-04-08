@@ -15,7 +15,7 @@ class CreateLettresTable extends Migration
     {
         Schema::create('lettres', function (Blueprint $table) {
             $table->id();
-            $table->string('description');
+            $table->text('description');
             $table->date('deliver_at');
             $table->string('email');
             $table->date('email_verified_at')->nullable();
