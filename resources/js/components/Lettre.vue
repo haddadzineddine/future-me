@@ -161,11 +161,11 @@ const rules = {
 const $v = useVuelidate(rules, lettre);
 
 const submit = async () => {
-    MarkAsInCompleted();
+    markAsInComplete();
     let result = await $v.value.$validate();
 
     if (!result) {
-        MarkAsCompleted();
+        markAsComplete();
         return;
     }
 
@@ -179,41 +179,41 @@ const createLettre = (url, data) => {
         axios
             .post(url, data)
             .then(() => {
-                successMessage();
-                resetForm();
-                MarkAsCompleted();
+                flashMessage(
+                    "Success",
+                    "Yes! Your lettre will be devilver on time !",
+                    "success"
+                );
+                reset();
+                resolve();
+                markAsComplete();
             })
             .catch(() => {
-                failMessage();
-                MarkAsCompleted();
+                flashMessage(
+                    "Fail",
+                    "Oops! Something went wrong , try again later.",
+                    "danger"
+                );
+                reject();
+                markAsComplete();
             });
     });
 };
 
-const MarkAsCompleted = () => (isCompleted.value = true);
-const MarkAsInCompleted = () => (isCompleted.value = false);
+const markAsComplete = () => (isCompleted.value = true);
+const markAsInComplete = () => (isCompleted.value = false);
 
-const successMessage = () => {
+const flashMessage = (title, description, type) => {
     createToast(
         {
-            title: "Success",
-            description: "Yes! Your lettre will be devilver on time !",
+            title: title,
+            description: description,
         },
-        { type: "success" }
+        { type: type }
     );
 };
 
-const failMessage = () => {
-    createToast(
-        {
-            title: "Fail",
-            description: "Oops! Something went wrong , try again later.",
-        },
-        { type: "danger" }
-    );
-};
-
-const resetForm = () => {
+const reset = () => {
     lettre.description = "Dear FutureMe, \n";
     lettre.email = "";
     lettre.deliver_at = "";
