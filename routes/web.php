@@ -10,6 +10,4 @@ use App\Http\Controllers\VerifyEmailController;
 Route::get('/lettres/{lettre}/email/confirm', VerifyEmailController::class)
     ->name('lettres.confirmEmail');
 
-Route::get('/', function () {
-    return view('home');
-});
+Route::view('/', 'home');

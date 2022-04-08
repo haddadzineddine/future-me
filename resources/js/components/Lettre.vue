@@ -135,26 +135,18 @@
 
 <script setup>
 import { reactive, ref } from "vue";
-import { RadioGroup, RadioGroupLabel, RadioGroupOption } from "@headlessui/vue";
 import useVuelidate from "@vuelidate/core";
 import { required, email } from "@vuelidate/validators";
 import axios from "axios";
 import { createToast } from "mosha-vue-toastify";
-import "mosha-vue-toastify/dist/style.css";
-
 import flatPickr from "vue-flatpickr-component";
+
+import "mosha-vue-toastify/dist/style.css";
 import "flatpickr/dist/flatpickr.css";
-const dates = [1, 3, 5];
 
 const isCompleted = ref(true);
-const showDate = ref(false);
-
-const Year = (year) => {
-    return year == 0 ? year + " Year" : year + " Years";
-};
 
 const lettre = reactive({
-    deliver_in: dates[0],
     deliver_at: "",
     description: "Dear FutureMe, \n",
     email: "",
@@ -169,31 +161,39 @@ const rules = {
 const $v = useVuelidate(rules, lettre);
 
 const submit = async () => {
-    lettre.deliver_at = moment(lettre.deliver_at).format("L");
-
-    isCompleted.value = false;
-
+    MarkAsInCompleted();
     let result = await $v.value.$validate();
 
     if (!result) {
-        isCompleted.value = true;
+        MarkAsCompleted();
         return;
     }
 
-    axios
-        .post("/api/add-lettre", lettre)
-        .then(() => {
-            success();
-            resetForm();
-            isCompleted.value = true;
-        })
-        .catch(() => {
-            fail();
-            isCompleted.value = true;
-        });
+    lettre.deliver_at = moment(lettre.deliver_at).format("L");
+
+    createLettre("/api/add-lettre", lettre);
 };
 
-const success = () => {
+const createLettre = (url, data) => {
+    return new Promise((resolve, reject) => {
+        axios
+            .post(url, data)
+            .then(() => {
+                successMessage();
+                resetForm();
+                MarkAsCompleted();
+            })
+            .catch(() => {
+                failMessage();
+                MarkAsCompleted();
+            });
+    });
+};
+
+const MarkAsCompleted = () => (isCompleted.value = true);
+const MarkAsInCompleted = () => (isCompleted.value = false);
+
+const successMessage = () => {
     createToast(
         {
             title: "Success",
@@ -203,7 +203,7 @@ const success = () => {
     );
 };
 
-const fail = () => {
+const failMessage = () => {
     createToast(
         {
             title: "Fail",
@@ -216,21 +216,7 @@ const fail = () => {
 const resetForm = () => {
     lettre.description = "Dear FutureMe, \n";
     lettre.email = "";
-    lettre.deliver_in = dates[0];
     lettre.deliver_at = "";
     $v.value.$reset();
-};
-
-const toggleDate = () => {
-    if (showDate.value) {
-        lettre.deliver_at = "";
-        lettre.deliver_in = dates[0];
-    }
-
-    if (!showDate.value) {
-        lettre.deliver_in = "";
-    }
-
-    showDate.value = !showDate.value;
 };
 </script>
