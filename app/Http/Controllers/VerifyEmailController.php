@@ -34,6 +34,6 @@ class VerifyEmailController extends Controller
             abort(403, 'Invalid Signature');
         }
 
-        return view('EmailVerified.blade');
+        return view('EmailVerified');
     }
 }
