@@ -1,6 +1,5 @@
 <template>
-
-    <div class="flex space-x-32">
+    <div class="flex flex-col mt-0 justify-between md:flex-row">
         <TagLine />
         <Lettre />
     </div>

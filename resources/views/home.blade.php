@@ -13,9 +13,9 @@
 
 </head>
 
-<body class="font-poppins">
+<body class="font-poppins ">
 
-    <div id="app" class="mx-16 flex h-screen  justify-center items-center">
+    <div id="app" class="md:mx-16 mx-4 grid place-items-center h-screen">
         <App />
     </div>
 
