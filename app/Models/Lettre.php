@@ -34,6 +34,6 @@ class Lettre extends Model
 
     protected function isTimeToDeliver()
     {
-        return Carbon::now()->format('Y-m-d') === Carbon::parse($this->deliver_at)->format('Y-m-d');
+        return Carbon::now()->format('Y-m-d') >= Carbon::parse($this->deliver_at)->format('Y-m-d');
     }
 }

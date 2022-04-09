@@ -23,7 +23,7 @@
                 alt="Bordered avatar"
             />
             <span>
-                Create by
+                Created by
                 <a href="https://zineddine.netlify.com/" class="underline"
                     >HADDAD ZINEDDINE</a
                 >
